@@ -38,6 +38,7 @@ return [
 	],
 	// 缓存
 	'cache' => [
-		'menuList' => 'menuList'
+		'menuList' => 'menuList',
+		'categoryList' => 'categoryList'
 	]
 ];

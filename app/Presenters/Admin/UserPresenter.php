@@ -13,6 +13,7 @@ class UserPresenter
 	 */
 	public function permissionList($permissions,$rolePermissions=[])
 	{
+
 		$html = '';
 		if ($permissions) {
 			foreach ($permissions as $key => $permission) {

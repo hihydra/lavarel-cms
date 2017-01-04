@@ -38,4 +38,14 @@ return [
 		'order_success' 	=> '排序菜单成功',
 		'order_error' 		=> '排序菜单失败',
 	],
+	'category' => [
+		'create_success' 	=> '添加分类成功',
+		'create_error' 		=> '添加分类失败',
+		'edit_success' 		=> '修改分类成功',
+		'edit_error' 		=> '修改分类失败',
+		'destroy_success' 	=> '删除分类成功',
+		'destroy_error' 	=> '删除分类失败',
+		'order_success' 	=> '排序分类成功',
+		'order_error' 		=> '排序分类失败',
+	],
 ];

@@ -1,6 +1,9 @@
 <?php
 return [
 	'home' => '<i class="fa fa-dashboard"></i> Dashboard',
+	'category' => [
+		'list' 		=> '<i class="fa fa-diamond"></i> 分类管理',
+	],
 	'permission' => [
 		'list' 		=> '<i class="fa fa-diamond"></i> 权限列表',
 		'create' 	=> '<i class="fa fa-plus"></i> 添加权限',

@@ -1,82 +1,75 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>用户注册</title>
+  <link rel="stylesheet" type="text/css" href="{{asset('admin/css/login.css')}}" />
+  <style>
+  body{height:100%;background:#16a085;overflow:hidden;}
+  canvas{z-index:-1;position:absolute;}
+  </style>
+</head>
+<body>
+<form role="form" method="POST" action="{{ url('/register') }}">
+  {{ csrf_field() }}
+  <dl class="admin_login">
+    <dt>
+    <strong>用户注册</strong>
+    <em>Management System</em>
+    </dt>
+    <dd class="user_icon">
+    <input type="text" name="{{config('admin.global.username')}}" class="login_txtbx" />
+    @if ($errors->has(config('admin.global.username')))
+    <dt class="error">
+      <em>{{ $errors->first(config('admin.global.username')) }}</em>
+    </dt>
+    @endif
+    </dd>
+    <dd class="pwd_icon">
+    <input type="email" name="email" class="login_txtbx" />
+    @if ($errors->has('email'))
+    <dt class="error">
+      <em>{{ $errors->first('email') }}</em>
+    </dt>
+    @endif
+    </dd>
+    <dd class="pwd_icon">
+    <input type="password" name="password" class="login_txtbx" />
+    @if ($errors->has('password'))
+    <dt class="error">
+      <em>{{ $errors->first('password') }}</em>
+    </dt>
+    @endif
+    </dd>
+    <dd class="pwd_icon">
+    <input type="password" name="password_confirmation" class="login_txtbx" />
+    @if ($errors->has('password_confirmation'))
+    <dt class="error">
+      <em>{{ $errors->first('password_confirmation') }}</em>
+    </dt>
+    @endif
+    </dd>
+    <dd>
+    <input type="submit" value="立即注册" class="submit_btn"/>
+    </dd>
+    <dd>
+    <a href="{{ url('/login') }}">返回登陆</a>
+    </dd>
+    <dd>
+    <p>后台管理系统</p>
+    </dd>
+  </dl>
+</form>
+  <script src="{{asset('vendors/jquery/jquery-2.1.1.js')}}"></script>
+  <script src="{{asset('vendors/Particleground.js')}}"></script>
+  <script>
+  $(document).ready(function() {
+  //粒子背景特效
+  $('body').particleground({
+  dotColor: '#5cbdaa',
+  lineColor: '#5cbdaa'
+  });
+  });
+  </script>
+</body>
+</html>

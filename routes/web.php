@@ -31,6 +31,12 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	require(__DIR__ . '/admin/user.php');
 	// 菜单
 	require(__DIR__ . '/admin/menu.php');
+	// 分类
+    require(__DIR__ . '/admin/Category.php');
+    // 标签
+    require(__DIR__ . '/admin/Tag.php');
+    // 文章
+    require(__DIR__ . '/admin/Article.php');
 
 });
 

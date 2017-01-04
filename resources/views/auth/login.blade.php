@@ -14,7 +14,7 @@
   {{ csrf_field() }}
   <dl class="admin_login">
     <dt>
-    <strong>站点后台管理系统</strong>
+    <strong>后台管理系统</strong>
     <em>Management System</em>
     </dt>
     <dd class="user_icon">
@@ -37,8 +37,10 @@
     <input type="submit" value="立即登陆" class="submit_btn"/>
     </dd>
     <dd>
-    <p>晚黎后台权限系统</p>
-    <p>iwanli</p>
+    <a href="{{ url('/register') }}">点我注册</a>
+    </dd>
+    <dd>
+    <p>后台管理系统</p>
     </dd>
   </dl>
 </form>

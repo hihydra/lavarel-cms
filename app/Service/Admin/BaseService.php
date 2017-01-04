@@ -7,7 +7,7 @@ use Route;
 */
 class BaseService
 {
-	
+
 	public function sendSystemErrorMail($mail,$e)
 	{
 		$exceptionData = [

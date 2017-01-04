@@ -37,7 +37,16 @@ return [
 		'download' 	=> 'log.download',
 		'filter' 	=> 'log.filter',
 	],
+	'category' => [
+		'list' 		=> 'category.list',
+		'create' 	=> 'category.create',
+		'edit' 		=> 'category.edit',
+		'orderable' => 'category.edit',
+		'destroy' 	=> 'category.destroy',
+		'show' 		=> 'category.show',
+	],
 	'system' => [
-		'list' => 'system.index'
+		'list' => 'system.index',
+		'blog' => 'system.blog',
 	]
 ];
