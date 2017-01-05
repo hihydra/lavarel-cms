@@ -1,98 +1,124 @@
 <?php
 namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use TagRepository;
+use App\Service\Admin\TagService;
 use App\Http\Requests\TagRequest;
-
 class TagController extends Controller
 {
-    public function __construct()
+    private $tag;
+
+    function __construct(TagService $tag)
     {
-        $this->middleware('checkPermission:'.config('admin.permissions.tag.list'), ['only' => ['index', 'ajaxIndex']]);
-        $this->middleware('checkPermission:'.config('admin.permissions.tag.create'), ['only' => ['create', 'store']]);
-        $this->middleware('checkPermission:'.config('admin.permissions.tag.edit'), ['only' => ['edit', 'update']]);
-        $this->middleware('checkPermission:'.config('admin.permissions.tag.destory'), ['only' => ['destroy']]);
+        // 自定义权限中间件
+        $this->middleware('check.permission:tag');
+        $this->tag = $tag;
     }
+
+    /**
+     * 标签列表
+     * @author 晚黎
+     * @date   2016-11-03T11:50:59+0800
+     * @return [type]                   [description]
+     */
     public function index()
     {
         return view('admin.tag.list');
     }
 
-    /**
-     *
-     * datatable获取数据
-     * 
-     * @date   2016-05-06
-     * @author 晚黎
-     * @return [type]     [description]
-     */
     public function ajaxIndex()
     {
-        $data = TagRepository::ajaxIndex();
-        return response()->json($data);
+        $responseData = $this->tag->ajaxIndex();
+        return response()->json($responseData);
     }
+
     /**
-     * 添加标签视图
-     * @date   2016-05-06
-     * @author 晚黎
-     * @return [type]     [description]
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('admin.tag.create');
+        list($permissions,$roles) = $this->tag->createView();
+        return view('admin.tag.create')->with(compact('permissions','roles'));
     }
 
     /**
      * 添加标签
-     * @date   2016-05-06
      * @author 晚黎
-     * @param  TagRequest $request [description]
-     * @return [type]                     [description]
+     * @date   2016-11-03T15:14:56+0800
+     * @param  tagRequest              $request [description]
+     * @return [type]                            [description]
      */
-    public function store(TagRequest $request)
+    public function store(tagRequest $request)
     {
-        TagRepository::store($request);
+        $this->tag->storetag($request->all());
         return redirect('admin/tag');
     }
 
     /**
-     * 修改标签视图
-     * @date   2016-05-06
+     * 查看标签信息
      * @author 晚黎
-     * @param  [type]     $id [description]
-     * @return [type]         [description]
+     * @date   2016-11-03T16:42:06+0800
+     * @param  [type]                   $id [description]
+     * @return [type]                       [description]
+     */
+    public function show($id)
+    {
+        $tag = $this->tag->findtagById($id);
+        return view('admin.tag.show')->with(compact('tag'));
+    }
+
+    /**
+     * 修改标签视图
+     * @author 晚黎
+     * @date   2016-11-03T16:41:48+0800
+     * @param  [type]                   $id [description]
+     * @return [type]                       [description]
      */
     public function edit($id)
     {
-    	$tag = TagRepository::edit($id);
-        return view('admin.tag.edit')->with(compact('tag'));
+        list($tag,$permissions,$roles) = $this->tag->editView($id);
+        return view('admin.tag.edit')->with(compact('tag','permissions','roles'));
     }
+
     /**
-     * 修改标签信息
-     * @date   2016-05-06
+     * 修改标签
      * @author 晚黎
-     * @param  TagRequest $request [description]
-     * @param  [type]     $id      [description]
-     * @return [type]              [description]
+     * @date   2016-11-03T16:10:02+0800
+     * @param  tagRequest              $request [description]
+     * @param  [type]                   $id      [description]
+     * @return [type]                            [description]
      */
-    public function update(TagRequest $request,$id)
+    public function update(tagRequest $request, $id)
     {
-        TagRepository::update($request,$id);
+        $this->tag->updatetag($request->all(),$id);
         return redirect('admin/tag');
     }
 
     /**
      * 删除标签
      * @author 晚黎
-     * @date   2016-04-14T11:52:40+0800
+     * @date   2016-11-03T17:20:49+0800
      * @param  [type]                   $id [description]
      * @return [type]                       [description]
      */
     public function destroy($id)
     {
-        TagRepository::destroy($id);
+        $this->tag->destroytag($id);
         return redirect('admin/tag');
+    }
+
+    /**
+     * 重置标签密码
+     * @author 晚黎
+     * @date   2016-11-03T17:21:05+0800
+     * @param  [type]                   $id [description]
+     * @return [type]                       [description]
+     */
+    public function resetPassword($id)
+    {
+        $responseData = $this->tag->resettagPassword($id);
+        return response()->json($responseData);
     }
 }

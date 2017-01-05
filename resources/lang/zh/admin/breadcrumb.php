@@ -4,6 +4,12 @@ return [
 	'category' => [
 		'list' 		=> '<i class="fa fa-diamond"></i> 分类管理',
 	],
+	'tag' => [
+		'list' 		=> '<i class="fa fa-diamond"></i> 标签列表',
+		'create' 	=> '<i class="fa fa-plus"></i> 添加标签',
+		'edit' 		=> '<i class="fa fa-pencil"></i> 修改标签',
+		'info' 		=> '<i class="fa fa-pencil"></i> 标签信息',
+	],
 	'permission' => [
 		'list' 		=> '<i class="fa fa-diamond"></i> 权限列表',
 		'create' 	=> '<i class="fa fa-plus"></i> 添加权限',

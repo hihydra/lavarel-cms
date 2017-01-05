@@ -45,6 +45,13 @@ return [
 		'destroy' 	=> 'category.destroy',
 		'show' 		=> 'category.show',
 	],
+	'tag' => [
+		'list' 		=> 'tag.list',
+		'create' 	=> 'tag.create',
+		'edit' 		=> 'tag.edit',
+		'destroy' 	=> 'tag.destroy',
+		'show' 		=> 'tag.show',
+	],
 	'system' => [
 		'list' => 'system.index',
 		'blog' => 'system.blog',

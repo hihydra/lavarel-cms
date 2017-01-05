@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\ActionAttributeTrait;
+use App\Traits\ActionButtonAttributeTrait;
 class Tag extends Model
 {
 
-	use ActionAttributeTrait;
-	
+	use ActionButtonAttributeTrait;
+
     protected $table = 'tags';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name','sulg','icon'];
 
     private $action;
 

@@ -48,4 +48,14 @@ return [
 		'order_success' 	=> '排序分类成功',
 		'order_error' 		=> '排序分类失败',
 	],
+	'tag' => [
+		'create_success' 	=> '添加标签成功',
+		'create_error' 		=> '添加标签失败',
+		'edit_success' 		=> '修改标签成功',
+		'edit_error' 		=> '修改标签失败',
+		'destroy_success' 	=> '删除标签成功',
+		'destroy_error' 	=> '删除标签失败',
+		'order_success' 	=> '排序标签成功',
+		'order_error' 		=> '排序标签失败',
+	],
 ];
