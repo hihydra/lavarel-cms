@@ -27,9 +27,6 @@ class CategoryRequest extends FormRequest
             $rules['id'] = 'numeric|required';
         }
         return $rules;
-        return [
-            'name'      => 'required',
-        ];
     }
     /**
      * 验证信息

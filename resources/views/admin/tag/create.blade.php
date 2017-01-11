@@ -1,7 +1,4 @@
 @extends('layouts.admin')
-@section('css')
-<link href="{{asset('vendors/iCheck/custom.css')}}" rel="stylesheet">
-@endsection
 @section('content')
 @inject('tagPresenter','App\Presenters\Admin\TagPresenter')
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -48,62 +45,24 @@
               </div>
             </div>
             <div class="hr-line-dashed"></div>
-            <div class="form-group{{ $errors->has('tagname') ? ' has-error' : '' }}">
-              <label class="col-sm-2 control-label">{{trans('admin/tag.model.tagname')}}</label>
+            <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
+              <label class="col-sm-2 control-label">{{trans('admin/tag.model.slug')}}</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="tagname" value="{{old('tagname')}}" placeholder="{{trans('admin/tag.model.tagname')}}">
-                @if ($errors->has('tagname'))
-                <span class="help-block m-b-none text-danger">{{ $errors->first('tagname') }}</span>
+                <input type="text" class="form-control" name="slug" value="{{old('slug')}}" placeholder="{{trans('admin/tag.model.slug')}}">
+                @if ($errors->has('slug'))
+                <span class="help-block m-b-none text-danger">{{ $errors->first('slug') }}</span>
                 @endif
               </div>
             </div>
             <div class="hr-line-dashed"></div>
-            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-              <label class="col-sm-2 control-label">{{trans('admin/tag.model.password')}}</label>
+            <div class="form-group{{ $errors->has('icon') ? ' has-error' : '' }}">
+              <label class="col-sm-2 control-label">{{trans('admin/tag.model.icon')}}</label>
               <div class="col-sm-10">
-                <input type="password" class="form-control" name="password" value="{{old('password')}}" placeholder="{{trans('admin/tag.model.password')}}">
-                @if ($errors->has('password'))
-                <span class="help-block m-b-none text-danger">{{ $errors->first('password') }}</span>
+                <input type="icon" class="form-control" name="icon" value="{{old('icon')}}" placeholder="{{trans('admin/tag.model.icon')}}">
+                <span class="help-block m-b-none">更多图标请查看 <a href="http://fontawesome.io/icons/" target="_black">Font Awesome</a></span>
+                @if ($errors->has('icon'))
+                <span class="help-block m-b-none text-danger">{{ $errors->first('icon') }}</span>
                 @endif
-              </div>
-            </div>
-            <div class="hr-line-dashed"></div>
-            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-              <label class="col-sm-2 control-label">{{trans('admin/tag.model.email')}}</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" name="email" value="{{old('email')}}" placeholder="{{trans('admin/tag.model.email')}}">
-                @if ($errors->has('email'))
-                <span class="help-block m-b-none text-danger">{{ $errors->first('email') }}</span>
-                @endif
-              </div>
-            </div>
-            <div class="hr-line-dashed"></div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label">{{trans('admin/tag.role')}}</label>
-              <div class="col-sm-10">
-                {!!$tagPresenter->roleList($roles)!!}
-              </div>
-            </div>
-            <div class="hr-line-dashed"></div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label">{{trans('admin/tag.permission')}}</label>
-              <div class="col-sm-10">
-                <div class="ibox float-e-margins">
-                  <div class="alert alert-warning">
-                    {!!trans('admin/tag.other_permission')!!}
-                  </div>
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                          <th class="col-md-1 text-center">{{trans('admin/tag.module')}}</th>
-                          <th class="col-md-10 text-center">{{trans('admin/tag.permission')}}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {!! $tagPresenter->permissionList($permissions) !!}
-                    </tbody>
-                  </table>
-                </div>
               </div>
             </div>
             <div class="hr-line-dashed"></div>
@@ -119,9 +78,7 @@
     </div>
   </div>
 </div>
-@include('admin.tag.modal')
 @endsection
 @section('js')
-<script type="text/javascript" src="{{asset('vendors/iCheck/icheck.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('admin/js/tag/tag.js')}}"></script>
 @endsection

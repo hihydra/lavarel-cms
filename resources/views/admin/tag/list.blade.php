@@ -46,7 +46,7 @@
                 <tr>
                   <th>{{trans('admin/tag.model.id')}}</th>
                   <th>{{trans('admin/tag.model.name')}}</th>
-                  <th>{{trans('admin/tag.model.sulg')}}</th>
+                  <th>{{trans('admin/tag.model.slug')}}</th>
                   <th>{{trans('admin/tag.model.icon')}}</th>
                   <th>{{trans('admin/tag.model.created_at')}}</th>
                   <th>{{trans('admin/tag.model.updated_at')}}</th>
@@ -76,21 +76,6 @@
     },function(index){
       _item.children('form').submit();
       layer.close(index);
-    });
-  });
-  $(document).on('click','.reset_password',function() {
-    var item = $(this);
-    layer.confirm('{{trans('admin/alert.reset_password').config('admin.global.reset')}}', {
-      btn: ['{{trans('admin/action.actionButton.reset')}}','{{trans('admin/action.actionButton.no')}}'] //按钮
-    }, function(){
-      var _id = item.attr('data-id');
-      $.ajax({
-        url:'/admin/tag/'+_id+'/reset',
-        success:function (response) {
-          layer.msg(response.msg);
-          layer.close(index);
-        }
-      });
     });
   });
 </script>

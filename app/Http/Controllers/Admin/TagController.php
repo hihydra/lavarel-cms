@@ -39,8 +39,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        list($permissions,$roles) = $this->tag->createView();
-        return view('admin.tag.create')->with(compact('permissions','roles'));
+        return view('admin.tag.create');
     }
 
     /**
@@ -50,23 +49,10 @@ class TagController extends Controller
      * @param  tagRequest              $request [description]
      * @return [type]                            [description]
      */
-    public function store(tagRequest $request)
+    public function store(TagRequest $request)
     {
-        $this->tag->storetag($request->all());
+        $this->tag->storeTag($request->all());
         return redirect('admin/tag');
-    }
-
-    /**
-     * 查看标签信息
-     * @author 晚黎
-     * @date   2016-11-03T16:42:06+0800
-     * @param  [type]                   $id [description]
-     * @return [type]                       [description]
-     */
-    public function show($id)
-    {
-        $tag = $this->tag->findtagById($id);
-        return view('admin.tag.show')->with(compact('tag'));
     }
 
     /**
@@ -78,8 +64,8 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        list($tag,$permissions,$roles) = $this->tag->editView($id);
-        return view('admin.tag.edit')->with(compact('tag','permissions','roles'));
+        $tag = $this->tag->editView($id);
+        return view('admin.tag.edit')->with(compact('tag'));
     }
 
     /**
@@ -107,18 +93,5 @@ class TagController extends Controller
     {
         $this->tag->destroytag($id);
         return redirect('admin/tag');
-    }
-
-    /**
-     * 重置标签密码
-     * @author 晚黎
-     * @date   2016-11-03T17:21:05+0800
-     * @param  [type]                   $id [description]
-     * @return [type]                       [description]
-     */
-    public function resetPassword($id)
-    {
-        $responseData = $this->tag->resettagPassword($id);
-        return response()->json($responseData);
     }
 }

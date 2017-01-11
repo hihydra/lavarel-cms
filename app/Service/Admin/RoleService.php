@@ -152,6 +152,6 @@ class RoleService extends BaseService
 			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
 			return false;
 		}
-		
+
 	}
 }

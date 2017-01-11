@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Requests;
-
-use App\Http\Requests\Request;
-
-class TagRequest extends Request
+use Illuminate\Foundation\Http\FormRequest;
+class TagRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,26 +20,43 @@ class TagRequest extends Request
      */
     public function rules()
     {
-        return [
-            'id' => 'numeric',
-            'name' => 'required|unique:tags,name,'.$this->id,
-        ];
+        $rules['name']      = 'required';
+        $rules['slug']      = 'required';
+        // 添加权限
+        if (request()->isMethod('PUT') || request()->isMethod('PATH')) {
+            // 修改时 request()->method() 方法返回的是 PUT或PATCH
+            $rules['id'] = 'numeric|required';
+        }
+        return $rules;
     }
 
+    /**
+     * 验证信息
+     * @author 晚黎
+     * @date   2016-11-03T14:52:55+0800
+     * @return [type]                   [description]
+     */
     public function messages()
     {
         return [
-            'numeric' => trans('validation.numeric'),
-            'required' => trans('validation.required'),
-            'unique' => trans('validation.unique'),
+            'required'  => trans('validation.required'),
+            'unique'    => trans('validation.unique'),
+            'numeric'   => trans('validation.numeric'),
         ];
     }
-
+    /**
+     * 字段名称
+     * @author 晚黎
+     * @date   2016-11-03T14:52:38+0800
+     * @return [type]                   [description]
+     */
     public function attributes()
     {
         return [
-            'name' => trans('labels.tag.name'),
-            'id' => trans('labels.tag.id'),
+            'id'        => trans('admin/tag.model.id'),
+            'name'      => trans('admin/tag.model.name'),
+            'slug'      => trans('admin/tag.model.slug'),
+            'icon'      => trans('admin/tag.model.icon'),
         ];
     }
 }

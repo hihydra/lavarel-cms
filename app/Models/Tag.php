@@ -9,21 +9,14 @@ class Tag extends Model
 
 	use ActionButtonAttributeTrait;
 
-    protected $table = 'tags';
+	private $action = 'tag';
 
-    protected $fillable = ['name','sulg','icon'];
+	protected $table = 'tags';
 
-    private $action;
+	protected $fillable = ['name','slug','icon'];
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->action = config('admin.global.tag.action');
-    }
-
-    public function article()
-    {
-        return $this->belongsToMany('App\Models\Article','article_tag','tag_id','article_id')->withTimestamps();
-    }
+	public function article()
+	{
+		return $this->belongsToMany('App\Models\Article','article_tag','tag_id','article_id')->withTimestamps();
+	}
 }

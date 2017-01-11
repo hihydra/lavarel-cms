@@ -3,22 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\ActionAttributeTrait;
+use App\Traits\ActionButtonAttributeTrait;
 class Article extends Model
 {
-	use ActionAttributeTrait;
-	
+	use ActionButtonAttributeTrait;
+
     protected $table = 'articles';
 
     protected $fillable = ['category_id','title','intro','img','content_html','content_mark','status'];
 
-    private $action;
-
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->action = config('admin.global.article.action');
-    }
+    private $action = 'article';
 
     public function tag()
     {

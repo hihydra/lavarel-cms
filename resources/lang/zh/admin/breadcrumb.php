@@ -10,6 +10,12 @@ return [
 		'edit' 		=> '<i class="fa fa-pencil"></i> 修改标签',
 		'info' 		=> '<i class="fa fa-pencil"></i> 标签信息',
 	],
+	'article' => [
+		'list' 		=> '<i class="fa fa-diamond"></i> 文章列表',
+		'create' 	=> '<i class="fa fa-plus"></i> 添加文章',
+		'edit' 		=> '<i class="fa fa-pencil"></i> 修改文章',
+		'info' 		=> '<i class="fa fa-pencil"></i> 文章信息',
+	],
 	'permission' => [
 		'list' 		=> '<i class="fa fa-diamond"></i> 权限列表',
 		'create' 	=> '<i class="fa fa-plus"></i> 添加权限',

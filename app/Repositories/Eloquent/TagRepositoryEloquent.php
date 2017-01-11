@@ -34,9 +34,9 @@ class TagRepositoryEloquent extends BaseRepository implements TagRepository
         $tag = $this->model;
         if ($search['value']) {
             if($search['regex'] == 'true'){
-                $tag = $tag->where('name', 'like', "%{$search['value']}%")->orWhere('tagname','like', "%{$search['value']}%");
+                $tag = $tag->where('name', 'like', "%{$search['value']}%");
             }else{
-                $tag = $tag->where('name', $search['value'])->orWhere('tagname', $search['value']);
+                $tag = $tag->where('name', $search['value']);
             }
         }
 
@@ -47,6 +47,11 @@ class TagRepositoryEloquent extends BaseRepository implements TagRepository
         $tags = $tag->offset($start)->limit($length)->get();
 
         return compact('count','tags');
+    }
+
+    public function allTags()
+    {
+        return $this->model->orderBy('sort','desc')->get()->toArray();
     }
 
 }

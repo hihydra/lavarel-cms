@@ -52,6 +52,13 @@ return [
 		'destroy' 	=> 'tag.destroy',
 		'show' 		=> 'tag.show',
 	],
+	'article' => [
+		'list' 		=> 'article.list',
+		'create' 	=> 'article.create',
+		'edit' 		=> 'article.edit',
+		'destroy' 	=> 'article.destroy',
+		'show' 		=> 'article.show',
+	],
 	'system' => [
 		'list' => 'system.index',
 		'blog' => 'system.blog',

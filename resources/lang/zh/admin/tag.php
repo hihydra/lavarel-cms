@@ -11,7 +11,7 @@ return [
 	'model' 	=> [
 		'id' 			=> 'ID',
 		'name' 			=> '名称',
-		'sulg' 		    => '别名',
+		'slug' 		    => '别名',
 		'icon' 			=> '图标',
         'created_at' 	=> '创建时间',
         'updated_at' 	=> '修改时间',

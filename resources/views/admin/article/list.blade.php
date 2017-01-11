@@ -1,148 +1,82 @@
 @extends('layouts.admin')
 @section('css')
-<link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/datatables/datatables.min.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/bootstrap-select/css/bootstrap-select.min.css')}}">
+<link href="{{asset('vendors/dataTables/datatables.min.css')}}" rel="stylesheet">
 @endsection
 @section('content')
-<div class="page-bar">
-  <ul class="page-breadcrumb">
-    <li>
-      <a href="{{url('admin/')}}">{!! trans('labels.breadcrumb.home') !!}</a>
-      <i class="fa fa-angle-right"></i>
-    </li>
-    <li>
-      <span>{!! trans('labels.breadcrumb.articleList') !!}</span>
-    </li>
-  </ul>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>{!!trans('admin/article.title')!!}</h2>
+    <ol class="breadcrumb">
+        <li>
+            <a href="{{url('admin/dash')}}">{!!trans('admin/breadcrumb.home')!!}</a>
+        </li>
+        <li class="active">
+            <strong>{!!trans('admin/breadcrumb.article.list')!!}</strong>
+        </li>
+    </ol>
+  </div>
+  @permission(config('admin.permissions.article.create'))
+  <div class="col-lg-2">
+    <div class="title-action">
+      <a href="{{url('admin/article/create')}}" class="btn btn-info">{!!trans('admin/article.action.create')!!}</a>
+    </div>
+  </div>
+  @endpermission
 </div>
-<!-- END PAGE BAR -->
-<div class="row margin-top-40">
-  <div class="col-md-12">
-    @include('flash::message')
-    <!-- Begin: life time stats -->
-    <div class="portlet light portlet-fit portlet-datatable bordered">
-      <div class="portlet-title">
-        <div class="caption">
-          <i class="icon-settings font-dark"></i>
-          <span class="caption-subject font-dark sbold uppercase">{!!trans('labels.breadcrumb.articleList')!!}</span>
-        </div>
-        <div class="actions">
-          <div class="btn-group">
-            @permission(config('admin.permissions.article.create'))
-            <a href="{{url('admin/article/create')}}" class="btn btn-success btn-outline btn-circle">
-              <i class="fa fa-plus"></i>
-              <span class="hidden-xs">{{trans('crud.create')}}</span>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>{!!trans('admin/article.desc')!!}</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
             </a>
-            @endpermission
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          @include('flash::message')
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover dataTablesAjax" >
+              <thead>
+                <tr>
+                  <th>{{trans('admin/article.model.id')}}</th>
+                  <th>{{trans('admin/article.model.title')}}</th>
+                  <th>{{trans('admin/article.model.category')}}</th>
+                  <th>{{trans('admin/article.model.status')}}</th>
+                  <th>{{trans('admin/article.model.created_at')}}</th>
+                  <th>{{trans('admin/article.model.updated_at')}}</th>
+                  <th>{{trans('admin/action.title')}}</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-      <div class="portlet-body">
-        <div class="table-container">
-          <table class="table table-striped table-bordered table-hover table-checkable" id="datatable_ajax">
-            <thead>
-              <tr role="row" class="heading">
-                <th>#</th>
-                <th> {{ trans('labels.article.title') }} </th>
-                <th> {{ trans('labels.article.status') }} </th>
-                <th> {{ trans('labels.article.created_at') }} </th>
-                <th> {{ trans('labels.article.updated_at') }} </th>
-                <th width="15%"> {{ trans('labels.action') }} </th>
-              </tr>
-              <tr role="row" class="filter">
-                <td></td>
-                <td>
-                  <div class="form-group form-md-line-input">
-                    <div class="input-group has-success">
-                      <span class="input-group-addon">
-                        <i class="fa fa-file-text"></i>
-                      </span>
-                      <input type="text" class="form-control form-filter" name="title" placeholder="{{ trans('labels.article.title') }}">
-                      <div class="form-control-focus"> </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="form-group form-md-line-input">
-                    <select class="bs-select form-control form-filter" data-show-subtext="true" name="status">
-                      <option value="" data-icon="fa-glass icon-success">状态....</option>
-                      @if(trans('strings.article'))
-                      @foreach(trans('strings.article') as $status_key => $status_value)
-                      <option value="{{config('admin.global.status.'.$status_key)}}" data-icon="{{$status_value[0]}}"> {{$status_value[1]}}</option>
-                      @endforeach
-                      @endif
-                    </select>
-                  </div>
-                  <td>
-                    <div class="input-group date date-picker margin-bottom-5" data-date-format="yyyy-mm-dd">
-                      <input type="text" class="form-control form-filter input-sm" readonly placeholder="From" name="created_at_from">
-                      <span class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                      </span>
-                    </div>
-
-                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-                      <input type="text" class="form-control form-filter input-sm" readonly placeholder="To" name="created_at_to">
-                      <span class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                      </span>
-                    </div>
-                    <td>
-                      <div class="input-group date date-picker margin-bottom-5" data-date-format="yyyy-mm-dd">
-                        <input type="text" class="form-control form-filter input-sm" readonly placeholder="From" name="updated_at_from">
-                        <span class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </span>
-                      </div>
-
-                      <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-                        <input type="text" class="form-control form-filter input-sm" readonly placeholder="To" name="updated_at_to">
-                        <span class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="margin-bottom-5">
-                        <button class="btn btn-sm green btn-outline filter-submit margin-bottom">
-                          <i class="fa fa-search"></i> Search</button>
-                        </div>
-                        <button class="btn btn-sm red btn-outline filter-cancel">
-                          <i class="fa fa-times"></i> Reset</button>
-                        </td>
-                      </tr>
-                    </thead>
-                    <tbody> </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <!-- End: life time stats -->
-          </div>
-        </div>
-        @endsection
-        @section('js')
-        <script type="text/javascript" src="{{asset('backend/plugins/datatables/datatables.all.min.js')}}"></script>
-        <script type="text/javascript" src="{{asset('backend/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
-        <script type="text/javascript" src="{{asset('backend/plugins/bootstrap-select/js/bootstrap-select.min.js')}}"></script>
-        <script type="text/javascript" src="{{asset('backend/js/article/article-list.js')}}"></script>
-        <script type="text/javascript" src="{{asset('backend/plugins/layer/layer.js')}}"></script>
-        <script type="text/javascript">
-          $(function() {
-            TableDatatablesAjax.init();
-            $(document).on('click','#destory',function() {
-              layer.msg('{{trans('alerts.deleteTitle')}}', {
-          time: 0, //不自动关闭
-          btn: ['{{trans('crud.destory')}}', '{{trans('crud.cancel')}}'],
-          icon: 5,
-          yes: function(index){
-            $('form[name="delete_item"]').submit();
-            layer.close(index);
-          }
-        });
-            });
-          });
-        </script>
-        @endsection
+    </div>
+  </div>
+</div>
+@endsection
+@section('js')
+<script src="{{asset('vendors/dataTables/datatables.min.js')}}"></script>
+<script src="{{asset('vendors/layer/layer.js')}}"></script>
+<script src="{{asset('admin/js/article/article-datatable.js')}}"></script>
+<script type="text/javascript">
+  $(document).on('click','.destroy_item',function() {
+    var _item = $(this);
+    layer.confirm('{{trans('admin/alert.deleteTitle')}}', {
+      btn: ['{{trans('admin/action.actionButton.destroy')}}', '{{trans('admin/action.actionButton.no')}}'],
+      icon: 5,
+    },function(index){
+      _item.children('form').submit();
+      layer.close(index);
+    });
+  });
+</script>
+@endsection

@@ -1,66 +1,86 @@
 @extends('layouts.admin')
 @section('content')
-<div class="page-bar">
-	<ul class="page-breadcrumb">
-	    <li>
-	        <a href="{{url('admin')}}">{!! trans('labels.breadcrumb.home') !!}</a>
-	        <i class="fa fa-angle-right"></i>
-	    </li>
-	    <li>
-	        <a href="{{url('admin/permission')}}">{!! trans('labels.breadcrumb.tagList') !!}</a>
-	        <i class="fa fa-angle-right"></i>
-	    </li>
-	    <li>
-	        <span>{!! trans('labels.breadcrumb.tagEdit') !!}</span>
-	    </li>
-	</ul>
-</div>
-<div class="row margin-top-40">
-  <div class="col-md-12">
-      <!-- BEGIN SAMPLE FORM PORTLET-->
-      <div class="portlet light bordered">
-          <div class="portlet-title">
-              <div class="caption font-green-haze">
-                  <i class="icon-settings font-green-haze"></i>
-                  <span class="caption-subject bold uppercase">{!! trans('labels.breadcrumb.tagEdit') !!}</span>
-              </div>
-              <div class="actions">
-                  <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title=""> </a>
-              </div>
-          </div>
-          <div class="portlet-body form">
-          		@if (isset($errors) && count($errors) > 0 )
-					    <div class="alert alert-danger">
-					        <button class="close" data-close="alert"></button>
-					        @foreach($errors->all() as $error)
-					            <span class="help-block"><strong>{{ $error }}</strong></span>
-					        @endforeach
-					    </div>
-					    @endif
-              <form role="form" class="form-horizontal" method="POST" action="{{url('admin/tag/'.$tag->id)}}">
-              	{!! csrf_field() !!}
-                  <input type="hidden" name="_method" value="PATCH">
-                  <input type="hidden" name="id" value="{{$tag->id}}">
-                  <div class="form-body">
-                      <div class="form-group form-md-line-input">
-                          <label class="col-md-2 control-label" for="name">{{trans('labels.tag.name')}}</label>
-                          <div class="col-md-8">
-                              <input type="text" class="form-control" id="name" name="name" placeholder="{{trans('labels.tag.name')}}" value="{{$tag->name}}">
-                              <div class="form-control-focus"> </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="form-actions">
-                      <div class="row">
-                          <div class="col-md-offset-2 col-md-10">
-                              <a href="{{url()->previous()}}" class="btn default">{{trans('crud.cancel')}}</a>
-                              <button type="submit" class="btn blue">{{trans('crud.submit')}}</button>
-                          </div>
-                      </div>
-                  </div>
-              </form>
-          </div>
-      </div>
+@inject('tagPresenter','App\Presenters\Admin\TagPresenter')
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>{!!trans('admin/tag.title')!!}</h2>
+    <ol class="breadcrumb">
+        <li>
+            <a href="{{url('admin/dash')}}">{!!trans('admin/breadcrumb.home')!!}</a>
+        </li>
+        <li>
+            <a href="{{url('admin/tag')}}">{!!trans('admin/breadcrumb.tag.list')!!}</a>
+        </li>
+        <li class="active">
+            <strong>{!!trans('admin/breadcrumb.tag.edit')!!}</strong>
+        </li>
+    </ol>
   </div>
 </div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>{!!trans('admin/tag.edit')!!}</h5>
+          <div class="ibox-tools">
+              <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+              </a>
+              <a class="close-link">
+                  <i class="fa fa-times"></i>
+              </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <form method="post" action="{{url('admin/tag',[$tag->id])}}" class="form-horizontal">
+            {{csrf_field()}}
+            {{method_field('PUT')}}
+            <input type="hidden" name="id" value="{{$tag->id}}">
+            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+              <label class="col-sm-2 control-label">{{trans('admin/tag.model.name')}}</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="name" value="{{old('name',$tag->name)}}" placeholder="{{trans('admin/tag.model.name')}}">
+                @if ($errors->has('name'))
+                <span class="help-block m-b-none text-danger">{{ $errors->first('name') }}</span>
+                @endif
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
+              <label class="col-sm-2 control-label">{{trans('admin/tag.model.slug')}}</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="slug" value="{{old('slug',$tag->slug)}}" placeholder="{{trans('admin/tag.model.slug')}}">
+                @if ($errors->has('slug'))
+                <span class="help-block m-b-none text-danger">{{ $errors->first('slug') }}</span>
+                @endif
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group{{ $errors->has('icon') ? ' has-error' : '' }}">
+              <label class="col-sm-2 control-label">{{trans('admin/tag.model.icon')}}</label>
+              <div class="col-sm-10">
+                <input type="icon" class="form-control" name="icon" value="{{old('icon',$tag->icon)}}" placeholder="{{trans('admin/tag.model.icon')}}">
+                <span class="help-block m-b-none">更多图标请查看 <a href="http://fontawesome.io/icons/" target="_black">Font Awesome</a></span>
+                @if ($errors->has('icon'))
+                <span class="help-block m-b-none text-danger">{{ $errors->first('icon') }}</span>
+                @endif
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+              <div class="col-sm-4 col-sm-offset-2">
+                  <a class="btn btn-white" href="{{url()->previous()}}">{!!trans('admin/action.actionButton.cancel')!!}</a>
+                  <button class="btn btn-primary" type="submit">{!!trans('admin/action.actionButton.submit')!!}</button>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+@endsection
+@section('js')
+<script type="text/javascript" src="{{asset('admin/js/tag/tag.js')}}"></script>
 @endsection
