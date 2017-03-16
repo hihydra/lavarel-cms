@@ -21,7 +21,6 @@ class TagRequest extends FormRequest
     public function rules()
     {
         $rules['name']      = 'required';
-        $rules['slug']      = 'required';
         // 添加权限
         if (request()->isMethod('PUT') || request()->isMethod('PATH')) {
             // 修改时 request()->method() 方法返回的是 PUT或PATCH
@@ -30,20 +29,6 @@ class TagRequest extends FormRequest
         return $rules;
     }
 
-    /**
-     * 验证信息
-     * @author 晚黎
-     * @date   2016-11-03T14:52:55+0800
-     * @return [type]                   [description]
-     */
-    public function messages()
-    {
-        return [
-            'required'  => trans('validation.required'),
-            'unique'    => trans('validation.unique'),
-            'numeric'   => trans('validation.numeric'),
-        ];
-    }
     /**
      * 字段名称
      * @author 晚黎

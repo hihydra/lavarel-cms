@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Requests;
-
-use App\Http\Requests\Request;
-
-class ArticleRequest extends Request
+use Illuminate\Foundation\Http\FormRequest;
+class ArticleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +20,15 @@ class ArticleRequest extends Request
      */
     public function rules()
     {
-        return [
-            'id' => 'numeric',
-            'category_id' => 'required|numeric',
-            'title' => 'required|unique:permissions,slug,'.$this->id,
-            'editor-markdown-doc' => 'required',
-            'intro' => 'required',
-            'status' => 'required',
-        ];
+        $rules['title'] = 'required';
+        $rules['category_id'] = 'numeric|required';
+        $rules['editor-markdown-doc'] = 'required';
+        // 添加权限
+        if (request()->isMethod('PUT') || request()->isMethod('PATH')) {
+            // 修改时 request()->method() 方法返回的是 PUT或PATCH
+            $rules['id'] = 'numeric|required';
+        }
+        return $rules;
     }
 
     public function messages()
@@ -45,12 +43,13 @@ class ArticleRequest extends Request
     public function attributes()
     {
         return [
-            'id'            => trans('labels.id'),
-            'category_id'   => trans('labels.id'),
-            'title'          => trans('labels.article.title'),
-            'editor-markdown-doc' => trans('labels.article.content'),
-            'intro'         => trans('labels.article.intro'),
-            'status'        => trans('labels.article.status'),     
+            'id'                  => trans('admin/article.model.id'),
+            'title'               => trans('admin/article.model.title'),
+            'category_id'         => trans('admin/article.model.id'),
+            'intro'               => trans('admin/article.model.intro'),
+            'img'                 => trans('admin/article.model.img'),
+            'editor-markdown-doc' => trans('admin/article.model.content'),
+            //'status'              => trans('admin/article.model.status'),
         ];
     }
 }

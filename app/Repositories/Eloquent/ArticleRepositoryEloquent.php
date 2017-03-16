@@ -3,6 +3,7 @@ namespace App\Repositories\Eloquent;
 use Prettus\Repository\Eloquent\BaseRepository;
 use App\Repositories\Contracts\ArticleRepository;
 use App\Models\Article;
+
 /**
  * Class articleRepositoryEloquent
  * @package namespace App\Repositories\Eloquent;
@@ -20,7 +21,7 @@ class ArticleRepositoryEloquent extends BaseRepository implements ArticleReposit
     }
 
     /**
-     * 查询标签并分页
+     * 查询文章并分页
      * @author 晚黎
      * @date   2016-11-03T12:56:28+0800
      * @param  [type]                   $start  [起始数目]
@@ -42,9 +43,9 @@ class ArticleRepositoryEloquent extends BaseRepository implements ArticleReposit
 
         $count = $article->count();
 
-        $article = $article->orderBy($order['title'], $order['dir']);
+        $article = $article->orderBy($order['name'], $order['dir']);
 
-        $articles = $article->offset($start)->limit($length)->get();
+        $articles = $article->with('category','user')->offset($start)->limit($length)->get();
 
         return compact('count','articles');
     }

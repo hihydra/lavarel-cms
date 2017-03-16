@@ -172,6 +172,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class, // flash 通知
         HieuLe\Active\ActiveServiceProvider::class, //Active
         Arcanedev\LogViewer\LogViewerServiceProvider::class, //系统日志
+        Barryvdh\Debugbar\ServiceProvider::class, //调试
 
 
         /*
@@ -230,6 +231,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,//调试
     ],
 
 ];

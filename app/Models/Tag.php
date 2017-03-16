@@ -11,9 +11,23 @@ class Tag extends Model
 
 	private $action = 'tag';
 
-	protected $table = 'tags';
-
 	protected $fillable = ['name','slug','icon'];
+
+
+    public function setNameAttribute($value){
+
+        $this->attributes['name'] = $value;
+
+        //if(!$this->exists){
+            $this->attributes['slug'] = str_slug($value);
+        //}
+    }
+
+    public function setIconAttribute($value){
+        if(!$value){
+            $this->attributes['icon'] = 'fa fa-tag';
+        }
+    }
 
 	public function article()
 	{

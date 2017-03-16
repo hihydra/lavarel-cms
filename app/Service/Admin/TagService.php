@@ -44,6 +44,7 @@ class TagService extends BaseService
 		if ($result['tags']) {
 			foreach ($result['tags'] as $v) {
 				$v->actionButton = $v->getActionButtonAttribute(false);
+				$v->icon = '<i class="'.$v->icon.'"></i>';
 				$tags[] = $v;
 			}
 		}
@@ -98,7 +99,7 @@ class TagService extends BaseService
 	 * @param  [type]                   $id         [resource路由传递过来的id]
 	 * @return [type]                               [Boolean]
 	 */
-	public function updatetag($attributes,$id)
+	public function updateTag($attributes,$id)
 	{
 		// 防止标签恶意修改表单id，如果id不一致直接跳转500
 		if ($attributes['id'] != $id) {
@@ -121,10 +122,14 @@ class TagService extends BaseService
 	 * @param  [type]                   $id [标签ID]
 	 * @return [type]                       [Boolean]
 	 */
-	public function destroytag($id)
+	public function destroyTag($id)
 	{
 		try {
-			$result = $this->tag->delete($id);
+			$result = $this->tag->find($id);
+			if ($result) {
+				$result->article()->detach();
+        		$result->delete();
+			}
 			flash_info($result,trans('admin/alert.tag.destroy_success'),trans('admin/alert.tag.destroy_error'));
 			return $result;
 		} catch (Exception $e) {

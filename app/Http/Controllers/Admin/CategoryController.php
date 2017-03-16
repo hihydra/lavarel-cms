@@ -46,7 +46,7 @@ class categoryController extends Controller
      * @param  categoryRequest              $request [description]
      * @return [type]                            [description]
      */
-    public function store(categoryRequest $request)
+    public function store(CategoryRequest $request)
     {
         $responseData = $this->category->storeCategory($request->all());
         return response()->json($responseData);

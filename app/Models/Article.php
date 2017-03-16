@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\ActionButtonAttributeTrait;
+use App\Traits\TextAttributeTrait;
+
 class Article extends Model
 {
 	use ActionButtonAttributeTrait;
-
-    protected $table = 'articles';
-
-    protected $fillable = ['category_id','title','intro','img','content_html','content_mark','status'];
+    use TextAttributeTrait;
 
     private $action = 'article';
+
+    protected $fillable = ['title','category_id','intro','img','content_html','content_mark','status','user_id'];
 
     public function tag()
     {
@@ -21,6 +22,11 @@ class Article extends Model
 
     public function category()
     {
-        return $this->hasOne('App\Models\Category','id','category_id');
+        return $this->belongsTo('App\Models\Category');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }

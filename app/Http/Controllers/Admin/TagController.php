@@ -78,7 +78,7 @@ class TagController extends Controller
      */
     public function update(tagRequest $request, $id)
     {
-        $this->tag->updatetag($request->all(),$id);
+        $this->tag->updateTag($request->all(),$id);
         return redirect('admin/tag');
     }
 
@@ -91,7 +91,7 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        $this->tag->destroytag($id);
+        $this->tag->destroyTag($id);
         return redirect('admin/tag');
     }
 }

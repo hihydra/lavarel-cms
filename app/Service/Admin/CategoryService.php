@@ -83,10 +83,12 @@ class CategoryService extends BaseService
 	 * @param  [type]                   $attributes [表单数据]
 	 * @return [type]                               [Boolean]
 	 */
-	public function storeCategory($attributes)
+	public function storeCategory($formData)
 	{
 		try {
-			$result = $this->category->create($attributes);
+			//$formData['content_html'] = $formData['editor-html-code'];
+			$formData['content_mark'] = $formData['editor-markdown-doc'];
+			$result = $this->category->create($formData);
 			if ($result) {
 				// 更新缓存
 				$this->sortcategorySetCache();

@@ -18,9 +18,11 @@ class CreateCategoriesTable extends Migration
             $table->integer('pid')->default(0)->comment('分类关系');
             $table->string('url')->default('')->comment('菜单链接地址');
             $table->string('icon')->default('')->comment('图标');
-            $table->string('description')->default('')->comment('描述');
             $table->tinyInteger('sort')->default(0)->comment('排序');
             $table->tinyInteger('status')->default(1)->comment('状态');
+            $table->tinyInteger('type')->default(1)->comment('类型');
+            $table->text('content_html')->comment('文章内容-html格式');
+            $table->text('content_mark')->comment('文章内容-markdown格式');
             $table->timestamps();
         });
     }

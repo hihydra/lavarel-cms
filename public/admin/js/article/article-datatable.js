@@ -41,13 +41,18 @@ var TableDatatablesAjax = function() {
         	"orderable" : false,
         },
         {
-        	"data": "category",
-        	"name": "category",
+        	"data": "category.name",
+        	"name": "category_name",
         	"orderable" : false,
         },
         {
           "data": "status",
           "name": "status",
+          "orderable" : false,
+        },
+        {
+          "data": "user.username",
+          "name": "user",
           "orderable" : false,
         },
         {

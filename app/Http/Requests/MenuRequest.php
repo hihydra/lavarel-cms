@@ -22,7 +22,7 @@ class MenuRequest extends FormRequest
     {
         $rules['name'] = 'required';
         $rules['slug'] = 'required';
-        $rules['url'] = 'required';
+        //$rules['url'] = 'required';
         // 添加权限
         if (request()->isMethod('PUT') || request()->isMethod('PATH')) {
             // 修改时 request()->method() 方法返回的是 PUT或PATCH

@@ -32,4 +32,8 @@ class User extends Authenticatable implements HasRoleAndPermissionContract
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public function articles(){
+        return $this->hasMany('App\Models\Article');
+    }
 }

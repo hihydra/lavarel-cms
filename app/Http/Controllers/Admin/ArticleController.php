@@ -3,16 +3,19 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Service\Admin\ArticleService;
+use App\Service\Admin\UploadService;
 use App\Http\Requests\ArticleRequest;
 class ArticleController extends Controller
 {
     private $article;
+    private $upload;
 
-    public function __construct(ArticleService $article)
+    public function __construct(ArticleService $article,UploadService $upload)
     {
         // 自定义权限中间件
         $this->middleware('check.permission:article');
         $this->article = $article;
+        $this->upload = $upload;
     }
 
     public function index()
@@ -25,6 +28,7 @@ class ArticleController extends Controller
     	$data = $this->article->ajaxIndex();
     	return response()->json($data);
     }
+
     /**
      * 添加文章视图
      * @author 晚黎
@@ -42,11 +46,11 @@ class ArticleController extends Controller
      * @date   2016-05-06
      * @author 晚黎
      * @param  ArticleRequest $request [description]
-     * @return [type]                     [description]
+     * @return [type]                  [description]
      */
     public function store(ArticleRequest $request)
     {
-    	ArticleRepository::store($request);
+    	$this->article->storeArticle($request->all());
     	return redirect('admin/article');
     }
 
@@ -59,11 +63,10 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $tags = TagRepository::findAllTag();
-    	$article = ArticleRepository::edit($id);
-        $categories = CategoryRepository::index();
+        list($categories,$tags,$article) = $this->article->editView($id);
     	return view('admin.article.edit')->with(compact(['article','tags','categories']));
     }
+
     /**
      * 修改文章
      * @author 晚黎
@@ -74,8 +77,8 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request,$id)
     {
-    	ArticleRepository::update($request,$id);
-    	return redirect('admin/article');
+    	$this->article->updateArticle($request->all(),$id);
+        return redirect('admin/article');
     }
 
     /**
@@ -101,7 +104,7 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        ArticleRepository::destroy($id);
+        $this->article->destroyArticle($id);
         return redirect('admin/article');
     }
 
@@ -126,7 +129,7 @@ class ArticleController extends Controller
      */
     public function upload(Request $request)
     {
-        $response = ArticleRepository::upload($request);
+        $response = $this->upload->uploadImage($request);
         return response()->json($response);
     }
 }

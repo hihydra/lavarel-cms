@@ -64,7 +64,7 @@ trait ActionButtonAttributeTrait
 		}
 		return '';
 	}
-	
+
 	/**
 	 * 获取按钮
 	 * @author 晚黎
@@ -79,4 +79,5 @@ trait ActionButtonAttributeTrait
 				$this->getEditActionButton().
 				$this->getDestroyActionButton();
 	}
+
 }

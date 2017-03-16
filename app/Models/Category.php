@@ -3,15 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\ActionButtonAttributeTrait;
-
-class Category extends Model
+use App\Traits\ActionButtonAttributeTrait;class Category extends Model
 {
 	use ActionButtonAttributeTrait;
 
     private $action = 'category';
 
-    protected $fillable = ['name','pid','url','icon','description','sort','status'];
+    protected $fillable = ['name','pid','url','icon','sort','status','type','content_html','content_mark'];
 
     public function setSortAttribute($value)
     {
@@ -24,7 +22,7 @@ class Category extends Model
 
     public function setStatusAttribute($value)
     {
-        if (!empty($value)) {
+        if ($value == 'on') {
             $this->attributes['status'] = 1;
         }else{
             $this->attributes['status'] = 0;

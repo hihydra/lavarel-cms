@@ -16,8 +16,13 @@ return [
         'description' 	=> '描述',
         'sort' 			=> '排序',
         'status'        => '是否启用',
+        'type'          => '栏目类型',
         'created_at' 	=> '创建时间',
         'updated_at' 	=> '修改时间',
+	],
+	'type' => [
+		'cover'   => '封面页',
+		'column'  => '栏目页',
 	],
 	'action' => [
 		'create' => '<i class="fa fa-plus"></i> 添加分类',

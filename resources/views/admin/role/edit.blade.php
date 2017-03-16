@@ -43,7 +43,7 @@
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
               <label class="col-sm-2 control-label">{{trans('admin/role.model.name')}}</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="name" value="{{old('name',$role->name)}}" placeholder="{{trans('admin/role.model.name')}}"> 
+                <input type="text" class="form-control" name="name" value="{{old('name',$role->name)}}" placeholder="{{trans('admin/role.model.name')}}">
                 @if ($errors->has('name'))
                 <span class="help-block m-b-none text-danger">{{ $errors->first('name') }}</span>
                 @endif
@@ -53,7 +53,7 @@
             <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
               <label class="col-sm-2 control-label">{{trans('admin/role.model.slug')}}</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="slug" value="{{old('slug',$role->slug)}}" placeholder="{{trans('admin/role.model.slug')}}"> 
+                <input type="text" class="form-control" name="slug" value="{{old('slug',$role->slug)}}" placeholder="{{trans('admin/role.model.slug')}}">
                 @if ($errors->has('slug'))
                 <span class="help-block m-b-none text-danger">{{ $errors->first('slug') }}</span>
                 @endif

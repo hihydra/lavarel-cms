@@ -37,9 +37,6 @@
     <input type="submit" value="立即登陆" class="submit_btn"/>
     </dd>
     <dd>
-    <a href="{{ url('/register') }}">点我注册</a>
-    </dd>
-    <dd>
     <p>后台管理系统</p>
     </dd>
   </dl>

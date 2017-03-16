@@ -17,6 +17,7 @@ return [
 		'content'       => '内容',
 		'tags'          => '标签',
 		'status' 		=> '状态',
+		'user'          => '发布人',
         'created_at' 	=> '创建时间',
         'updated_at' 	=> '修改时间',
 	],

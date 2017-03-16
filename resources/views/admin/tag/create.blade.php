@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section('content')
-@inject('tagPresenter','App\Presenters\Admin\TagPresenter')
 <div class="row wrapper border-bottom white-bg page-heading">
   <div class="col-lg-10">
     <h2>{!!trans('admin/tag.title')!!}</h2>
@@ -78,7 +77,4 @@
     </div>
   </div>
 </div>
-@endsection
-@section('js')
-<script type="text/javascript" src="{{asset('admin/js/tag/tag.js')}}"></script>
 @endsection

@@ -22,6 +22,51 @@ class MenusTableSeeder extends Seeder
 
         /**
          * -------------------------------------------------
+         * 博客管理
+         * -------------------------------------------------
+         */
+
+        $blog = new Menu;
+        $blog->name = "博客管理";
+        $blog->pid = 0;
+        $blog->icon = "fa fa-diamond";
+        $blog->slug = "system.blog";
+        $blog->url = "";
+        $blog->active = "admin/category*,admin/article*,admin/tag*";
+        $blog->description = "博客管理";
+        $blog->save();
+
+        $categories = new Menu;
+        $categories->name = "分类管理";
+        $categories->pid = $blog->id;
+        $categories->icon = "fa fa-cloud";
+        $categories->slug = "categories.list";
+        $categories->url = "admin/category";
+        $categories->active = "admin/category*";
+        $categories->description = "分类管理";
+        $categories->save();
+
+        $article = new Menu;
+        $article->name = "文章管理";
+        $article->pid = $blog->id;
+        $article->icon = "fa fa-file-text";
+        $article->slug = "articles.list";
+        $article->url = "admin/article";
+        $article->active = "admin/article*";
+        $article->description = "文章管理";
+        $article->save();
+
+        $tags = new Menu;
+        $tags->name = "标签管理";
+        $tags->pid = $blog->id;
+        $tags->icon = "fa fa-tags";
+        $tags->slug = "tags.list";
+        $tags->url = "admin/tag";
+        $tags->active = "admin/tag*";
+        $tags->description = "标签管理";
+        $tags->save();
+        /**
+         * -------------------------------------------------
          * 系统管理
          * -------------------------------------------------
          */

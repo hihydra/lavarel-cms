@@ -3,7 +3,6 @@
 <link href="{{asset('vendors/bootstrap-fileinput/bootstrap-fileinput.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('vendors/editor/css/editormd.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('vendors/bootstrap-select/css/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('vendors/bootstrap-articlesinput/bootstrap-articlesinput.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -50,10 +49,11 @@
               </div>
             </div>
             <div class="hr-line-dashed"></div>
-            <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
+            <div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
               <label class="col-sm-2 control-label">{{trans('admin/article.model.category')}}</label>
               <div class="col-sm-10">
-                <select class="bs-select form-control form-filter" data-live-search="true" data-show-subtext="true" name="category">
+                <select class="bs-select form-control form-filter" data-live-search="true" data-show-subtext="true" name="category_id">
+                    <option value="0">--请选择分类--</option>
                     @if($categories)
                       @foreach($categories as $v)
                         <option value="{{$v['id']}}">{{$v['name']}}</option>
@@ -65,7 +65,7 @@
                       @endforeach
                     @endif
                 </select>
-                @if ($errors->has('category'))
+                @if ($errors->has('category_id'))
                 <span class="help-block m-b-none text-danger">{{ $errors->first('category') }}</span>
                 @endif
               </div>
@@ -115,7 +115,7 @@
             <div class="form-group{{ $errors->has('tags') ? ' has-error' : '' }}">
               <label class="col-sm-2 control-label">{{trans('admin/article.model.tags')}}</label>
               <div class="col-sm-10">
-                <select class="bs-select form-control" name="tags" data-live-search="true" data-show-subtext="true" multiple="multiple" value="">
+                <select class="bs-select form-control" name="tags[]" data-live-search="true" data-show-subtext="true" multiple="multiple" value="">
                     @if($tags)
                       @foreach($tags as $v)
                         <option value="{{$v['id']}}">{{$v['name']}}</option>
@@ -146,7 +146,6 @@
 <script src="{{asset('vendors/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/editor/js/editormd.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-select/js/bootstrap-select.min.js')}}" type="text/javascript" ></script>
-<script src="{{asset('vendors/bootstrap-articlesinput/bootstrap-articlesinput.min.js')}}" type="text/javascript"></script>
 <script>
   $(function() {
     var editor = editormd('editor',{

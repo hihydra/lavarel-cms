@@ -232,5 +232,160 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'log.filter',
             'description' => '筛选日志信息'
         ]);
+
+
+        /**
+         * 博客管理权限
+         */
+        Permission::create([
+            'name' => '博客管理',
+            'slug' => 'system.blog',
+            'description' => '博客管理'
+        ]);
+
+        /**
+         * 显示分类列表
+         */
+        Permission::create([
+            'name' => '显示分类列表',
+            'slug' => 'category.list',
+            'description' => '显示分类列表'
+        ]);
+
+        /**
+         * 创建分类
+         */
+        Permission::create([
+            'name' => '创建分类',
+            'slug' => 'category.create',
+            'description' => '创建分类'
+        ]);
+
+        /**
+         * 删除分类
+         */
+        Permission::create([
+            'name' => '删除分类',
+            'slug' => 'category.delete',
+            'description' => '删除分类'
+        ]);
+
+        /**
+         * 修改分类
+         */
+        Permission::create([
+            'name' => '修改分类',
+            'slug' => 'category.edit',
+            'description' => '修改分类'
+        ]);
+
+
+        /**
+         * 显示文章列表
+         */
+        Permission::create([
+            'name' => '显示文章列表',
+            'slug' => 'article.list',
+            'description' => '显示文章列表'
+        ]);
+
+        /**
+         * 创建文章
+         */
+        Permission::create([
+            'name' => '创建文章',
+            'slug' => 'article.create',
+            'description' => '创建文章'
+        ]);
+
+        /**
+         * 删除文章
+         */
+        Permission::create([
+            'name' => '删除文章',
+            'slug' => 'article.delete',
+            'description' => '删除文章'
+        ]);
+
+        /**
+         * 修改文章
+         */
+        Permission::create([
+            'name' => '修改文章',
+            'slug' => 'article.edit',
+            'description' => '修改文章'
+        ]);
+
+        /**
+         * 通过文章
+         */
+        Permission::create([
+            'name' => '通过文章',
+            'slug' => 'article.audit',
+            'description' => '通过文章'
+        ]);
+
+        /**
+         * 禁用文章
+         */
+        Permission::create([
+            'name' => '禁用文章',
+            'slug' => 'article.trash',
+            'description' => '禁用文章'
+        ]);
+
+        /**
+         * 恢复文章
+         */
+        Permission::create([
+            'name' => '恢复文章',
+            'slug' => 'article.undo',
+            'description' => '恢复文章'
+        ]);
+
+        /**
+         * 查看文章信息
+         */
+        Permission::create([
+            'name' => '查看文章信息',
+            'slug' => 'article.show',
+            'description' => '查看文章信息'
+        ]);
+
+        /**
+         * 显示标签列表
+         */
+        Permission::create([
+            'name' => '显示标签列表',
+            'slug' => 'tag.list',
+            'description' => '显示标签列表'
+        ]);
+
+        /**
+         * 创建标签
+         */
+        Permission::create([
+            'name' => '创建标签',
+            'slug' => 'tag.create',
+            'description' => '创建标签'
+        ]);
+
+        /**
+         * 删除标签
+         */
+        Permission::create([
+            'name' => '删除标签',
+            'slug' => 'tag.delete',
+            'description' => '删除标签'
+        ]);
+
+        /**
+         * 修改标签
+         */
+        Permission::create([
+            'name' => '修改标签',
+            'slug' => 'tag.edit',
+            'description' => '修改标签'
+        ]);
     }
 }

@@ -48,6 +48,16 @@ return [
 		'order_success' 	=> '排序分类成功',
 		'order_error' 		=> '排序分类失败',
 	],
+	'article' => [
+		'create_success' 	=> '添加文章成功',
+		'create_error' 		=> '添加文章失败',
+		'edit_success' 		=> '修改文章成功',
+		'edit_error' 		=> '修改文章失败',
+		'destroy_success' 	=> '删除文章成功',
+		'destroy_error' 	=> '删除文章失败',
+		'order_success' 	=> '排序文章成功',
+		'order_error' 		=> '排序文章失败',
+	],
 	'tag' => [
 		'create_success' 	=> '添加标签成功',
 		'create_error' 		=> '添加标签失败',

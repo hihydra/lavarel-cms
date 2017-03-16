@@ -48,6 +48,7 @@
                   <th>{{trans('admin/article.model.title')}}</th>
                   <th>{{trans('admin/article.model.category')}}</th>
                   <th>{{trans('admin/article.model.status')}}</th>
+                  <th>{{trans('admin/article.model.user')}}</th>
                   <th>{{trans('admin/article.model.created_at')}}</th>
                   <th>{{trans('admin/article.model.updated_at')}}</th>
                   <th>{{trans('admin/action.title')}}</th>

@@ -41,13 +41,14 @@ class ArticleService extends BaseService
 		$order['name'] = request('columns.' .request('order.0.column',0) . '.name');
 		$order['dir'] = request('order.0.dir','asc');
 
-		$result = $this->article->getarticleList($start,$length,$search,$order);
+		$result = $this->article->getArticleList($start,$length,$search,$order);
 
 		$articles = [];
 
 		if ($result['articles']) {
 			foreach ($result['articles'] as $v) {
 				$v->actionButton = $v->getActionButtonAttribute(false);
+				$v->status = $v->getStatusTextAttribute($v->status);
 				$articles[] = $v;
 			}
 		}
@@ -99,7 +100,18 @@ class ArticleService extends BaseService
 	public function storeArticle($formData)
 	{
 		try {
+			//if ($request->hasFile('img')) {
+			//	$data['img'] = $this->uploadImage($request->file('img'));
+			//}
+			$formData['content_html'] = $formData['editor-html-code'];
+			$formData['content_mark'] = $formData['editor-markdown-doc'];
 			$result = $this->article->create($formData);
+			if ($result) {
+				// 文章与标签关系
+				if ($formData['tags']) {
+					$result->tag()->sync($formData['tags']);
+				}
+			}
 			flash_info($result,trans('admin/alert.article.create_success'),trans('admin/alert.article.create_error'));
 			return $result;
 		} catch (Exception $e) {
@@ -117,9 +129,13 @@ class ArticleService extends BaseService
 	 */
 	public function editView($id)
 	{
-		$article = $this->article->find($id);
+		$article = $this->article->with('tag')->find($id);
 		if ($article){
-			return $article;
+			if ($article->tag) {
+				$tagIds = array_column($article->tag->toArray(), 'id');
+				$article->tag = $tagIds;
+			}
+			return [$this->getAllCategories(),$this->getAllTags(),$article];
 		}
 		// TODO替换正查找不到数据错误页面
 		abort(404);
@@ -132,7 +148,7 @@ class ArticleService extends BaseService
 	 * @param  [type]                   $id         [resource路由传递过来的id]
 	 * @return [type]                               [Boolean]
 	 */
-	public function updatearticle($attributes,$id)
+	public function updateArticle($attributes,$id)
 	{
 		// 防止文章恶意修改表单id，如果id不一致直接跳转500
 		if ($attributes['id'] != $id) {
@@ -140,6 +156,12 @@ class ArticleService extends BaseService
 		}
 		try {
 			$result = $this->article->update($attributes,$id);
+			if ($result) {
+				// 文章与标签关系
+				if ($attributes['tags']) {
+					$result->tag()->sync($attributes['tags']);
+				}
+			}
 			flash_info($result,trans('admin/alert.article.edit_success'),trans('admin/alert.article.edit_error'));
 			return $result;
 		} catch (Exception $e) {
@@ -148,17 +170,22 @@ class ArticleService extends BaseService
 			return false;
 		}
 	}
+
 	/**
-	 * 文章暂不做状态管理，直接删除
+	 * 删除文章
 	 * @author 晚黎
 	 * @date   2016-11-03T16:33:12+0800
-	 * @param  [type]                   $id [文章ID]
+	 * @param  [type]                   $id [标签ID]
 	 * @return [type]                       [Boolean]
 	 */
-	public function destroyarticle($id)
+	public function destroyArticle($id)
 	{
 		try {
-			$result = $this->article->delete($id);
+			$result = $this->article->find($id);
+			if ($result) {
+				$result->tag()->detach();
+        		$result->delete();
+			}
 			flash_info($result,trans('admin/alert.article.destroy_success'),trans('admin/alert.article.destroy_error'));
 			return $result;
 		} catch (Exception $e) {
@@ -168,4 +195,5 @@ class ArticleService extends BaseService
 		}
 
 	}
+
 }
